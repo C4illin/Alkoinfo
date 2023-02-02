@@ -22,13 +22,14 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
   document.title =
     "Alkoinfo | " + json.productNameBold + " " + (json.productNameThin || "");
 
-  // console.log(json);
-
-  // main.innerHTML = JSON.stringify(json)
+  let tasteTotal = ""
+  for (let clock of json.tasteClocks) {
+    tasteTotal += `<tr><td>${clock.key.replace("TasteClock","")}</td><td>${clock.value}/12</td></tr>`
+  }
 
   main.innerHTML = `
     <div>
-      <h1><b>${json.productNameBold}</b>${json.productNameThin != null ? " " + json.productNameThin : ""} | Alkoinfo</h1>
+      <h1><a href="https://www.systembolaget.se/${json.productNumber}"><b>${json.productNameBold}</b>${json.productNameThin != null ? " " + json.productNameThin : ""}</a> | Alkoinfo</h1>
       <h3>Grundläggande info</h3>
       <table>
         <tr>
@@ -85,7 +86,21 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
         </tr>
       </table>
       <h3>Smak</h3>
-      <table></table>
+      <table>
+        <tr>
+          <td>Servering</td>
+          <td>${json.usage}</td>
+        </tr>
+        <tr>
+          <td>Smak</td>
+          <td>${json.taste}</td>
+        </tr>
+        <tr>
+          <td>Färg</td>
+          <td>${json.color}</td>
+        </tr>
+        ${tasteTotal}
+      </table>
       <h3>Flaska</h3>
       <table>
         <tr>
@@ -105,6 +120,8 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
     <h4>Rådata</h4>
     `;
   // );
+
+  
 
   const ctx = document.getElementById("myChart");
   new Chart(ctx, {
