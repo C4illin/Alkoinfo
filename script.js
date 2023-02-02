@@ -99,6 +99,11 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
           <td>Färg</td>
           <td>${json.color}</td>
         </tr>
+        <tr>
+          <td>Sockerinnehåll</td>
+          <td>${json.sugarContentGramPer100ml} g/100ml</td>
+        </tr>
+
         ${tasteTotal}
       </table>
       <h3>Flaska</h3>
