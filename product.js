@@ -24,7 +24,7 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
 
   let tasteTotal = ""
   for (let clock of json.tasteClocks) {
-    tasteTotal += `<tr><td>${clock.key.replace("TasteClock","")}</td><td>${clock.value}/12</td></tr>`
+    tasteTotal += `<tr><td>${clock.key.replace("TasteClock", "")}</td><td>${clock.value}/12</td></tr>`
   }
 
   let taste = ""
@@ -87,7 +87,7 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
         </tr>
         <tr>
           <td>Land</td>
-          <td>${json.country + (json.originLevel1 != null ? ", "+json.originLevel1 : "") + (json.originLevel2 != null ? ", "+json.originLevel2 : "")}</td>
+          <td>${json.country + (json.originLevel1 != null ? ", " + json.originLevel1 : "") + (json.originLevel2 != null ? ", " + json.originLevel2 : "")}</td>
         </tr>
         <tr>
           <td>Sortiment</td>
@@ -133,7 +133,7 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
     `;
   // );
 
-  
+
 
   const ctx = document.getElementById("myChart");
   new Chart(ctx, {
@@ -186,14 +186,16 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
             drawOnChartArea: false, // only want the grid lines for one axis to show up
           },
         },
+        y2: {
+          type: "linear",
+          display: false,
+          grid: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
+        },
       },
     },
   });
 
   main.appendChild(renderjson(json));
 })();
-// fetch(url, options)
-//   .then(res => res.json())
-//   .then(json => {
-//     main.innerHTML = JSON.stringify(json)
-// })
