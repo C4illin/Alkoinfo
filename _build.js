@@ -88,8 +88,7 @@ const getUrl = async (url) => {
 
   const files = fs.readdirSync(".");
   for (const file of files) {
-    if (dontCopy.includes(file)) continue;
-    if (file.startsWith("_")) continue;
+    if (dontCopy.includes(file) || file.startsWith("_") || file.startsWith(".")) continue;
     fs.copyFileSync(file, `_site/${file}`);
   }
 })();
