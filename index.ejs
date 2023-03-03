@@ -20,8 +20,8 @@
         <h3><a href="https://alkoinfo.emrik.org/product.html?id=<%=product.productNumber%>">
         <b><%= product.productNameBold%></b>
         <%= product.productNameThin != null ? " " + product.productNameThin : ""%></a></h3>
-        <p><%= product.price %> kr</p>
-        <p><%= (new Date(product.changedDate).toISOString()).split("T")[0] %></p>
+        <p><%= product.customCategoryTitle %> - <%= product.price %> kr - <%= product.volumeText %> - <%= product.alcoholPercentage %> %</p>
+        <p>Uppdaterad: <%= (new Date(product.changedDate).toISOString()).split("T")[0] %></p>
       </div>
     <% }) %>
   </main>
