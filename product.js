@@ -27,6 +27,31 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
     tasteTotal += `<tr><td>${clock.key.replace("TasteClock","")}</td><td>${clock.value}/12</td></tr>`
   }
 
+  let taste = ""
+  if (json.tasteClocks.length > 0 || json.usage || json.taste || json.color || json.sugarContentGramPer100ml) {
+    taste = `<h3>Smak</h3>
+    <table>
+      <tr>
+        <td>Servering</td>
+        <td>${json.usage ? json.usage : "Ej testad"}</td>
+      </tr>
+      <tr>
+        <td>Smak</td>
+        <td>${json.taste ? json.taste : "Ej testad"}</td>
+      </tr>
+      <tr>
+        <td>Färg</td>
+        <td>${json.color ? json.color : "Ej testad"}</td>
+      </tr>
+      <tr>
+        <td>Sockerinnehåll</td>
+        <td>${json.sugarContentGramPer100ml ? json.sugarContentGramPer100ml + "g/100ml" : "Ej testad"} </td>
+      </tr>
+
+      ${tasteTotal}
+    </table>`
+  }
+
   main.innerHTML = `
     <div>
       <h1><a href="https://www.systembolaget.se/${json.productNumber}"><b>${json.productNameBold}</b>${json.productNameThin != null ? " " + json.productNameThin : ""}</a> | Alkoinfo</h1>
@@ -85,27 +110,9 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
           <td>${json.isNews ? "Ja" : "Nej"}</td>
         </tr>
       </table>
-      <h3>Smak</h3>
-      <table>
-        <tr>
-          <td>Servering</td>
-          <td>${json.usage}</td>
-        </tr>
-        <tr>
-          <td>Smak</td>
-          <td>${json.taste}</td>
-        </tr>
-        <tr>
-          <td>Färg</td>
-          <td>${json.color}</td>
-        </tr>
-        <tr>
-          <td>Sockerinnehåll</td>
-          <td>${json.sugarContentGramPer100ml} g/100ml</td>
-        </tr>
 
-        ${tasteTotal}
-      </table>
+      ${taste}
+      
       <h3>Flaska</h3>
       <table>
         <tr>
@@ -143,6 +150,11 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
           label: "Alkoholhalt [%]",
           yAxisID: "y1",
         },
+        {
+          data: json.soldVolume,
+          label: "Såld volym [l/år]",
+          yAxisID: "y2",
+        },
       ],
     },
     options: {
@@ -169,7 +181,6 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
               return Math.round((value + Number.EPSILON) * 100) / 100 + "%";
             },
           },
-
           // grid line settings
           grid: {
             drawOnChartArea: false, // only want the grid lines for one axis to show up

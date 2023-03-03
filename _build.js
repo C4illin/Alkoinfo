@@ -1,5 +1,6 @@
 const https = require("https");
 const fs = require("fs");
+const ejs = require("ejs");
 const core = require("@actions/core"); // required to be able to fail correctly
 
 // const getUrl = async (url) => {
@@ -77,18 +78,24 @@ const getUrl = async (url) => {
   // sort by changedDate
   updated.sort((a, b) => new Date(b.changedDate) - new Date(a.changedDate));
 
+  ejs.renderFile("index.ejs", { "updated": updated }, (err, str) => {
+    if (err) {
+      core.setFailed(err.message);
+    } else {
+      fs.writeFileSync("_site/index.html", str);
+    }
+  });
+
   // copy all files except files in don't copy
   const dontCopy = [
-    ".git",
     "node_modules",
     "package.json",
     "package-lock.json",
-    "index.html",
   ];
 
   const files = fs.readdirSync(".");
   for (const file of files) {
-    if (dontCopy.includes(file) || file.startsWith("_") || file.startsWith(".")) continue;
+    if (dontCopy.includes(file) || file.startsWith("_") || file.startsWith(".") || file.endsWith(".ejs")) continue;
     fs.copyFileSync(file, `_site/${file}`);
   }
 })();
