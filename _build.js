@@ -91,6 +91,7 @@ const getUrl = async (url) => {
     "node_modules",
     "package.json",
     "package-lock.json",
+    "README.md",
   ];
 
   const files = fs.readdirSync(".");
