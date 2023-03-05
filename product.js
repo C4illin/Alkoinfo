@@ -103,7 +103,7 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
         </tr>
         <tr>
           <td>Uppdaterad</td>
-          <td>${(json.changedDate != "1673910000000") ? new Date(json.changedDate).toISOString().split("T")[0] : "Nej"}</td>
+          <td>${(json.changedDate != "1673910000000") ? new Date(json.changedDate+3600000).toISOString().split("T")[0] : "Nej"}</td>
         </tr>
         <tr>
           <td>Nyhet</td>
@@ -178,7 +178,7 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
           position: "right",
           ticks: {
             callback: function (value, index, ticks) {
-              return Math.round((value + Number.EPSILON) * 100) / 100 + "%";
+              return Math.round((value + Number.EPSILON) * 10) / 10 + " %";
             },
           },
           // grid line settings
