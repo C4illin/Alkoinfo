@@ -1,4 +1,4 @@
-name: Run _build.js and deploy to GitHub Pages
+name: Build and deploy
 
 on:
   schedule:
