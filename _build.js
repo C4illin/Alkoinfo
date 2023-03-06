@@ -3,26 +3,6 @@ const fs = require("fs");
 const ejs = require("ejs");
 const core = require("@actions/core"); // required to be able to fail correctly
 
-// const getUrl = async (url) => {
-//   let result = [];
-//   https.get(url, (res) => {
-//     let body = "";
-//     res.on("data", (chunk) => {
-//       body += chunk;
-//     });
-
-//     res.on("end", () => {
-//       try {
-//         let result = JSON.parse(body);
-//         return result;
-//       } catch (error) {
-//         core.setFailed(error.message);
-//       }
-//     });
-//   })
-// };
-
-
 const getUrl = async (url) => {
   return new Promise((resolve, reject) => {
     https.get(url, (res) => {
@@ -30,7 +10,7 @@ const getUrl = async (url) => {
       res.on("data", (chunk) => {
         body += chunk;
       });
-      
+
       res.on("end", () => {
         try {
           let result = JSON.parse(body);
@@ -73,8 +53,17 @@ const getUrl = async (url) => {
 </urlset>`;
   fs.writeFileSync("_site/sitemap.xml", sitemap);
 
-  // get products that match id in updated
-  const updated = updatedProducts.map((product) => products.find((p) => p.productNumber === product.id));
+  const updated = products
+    .filter((product) => updatedProducts.map((p) => p.id).includes(product.productNumber))
+    .map((product) => {
+      const reason = updatedProducts.find((p) => p.id === product.productNumber)?.reason;
+      if (reason) {
+        return { ...product, reason };
+      } else {
+        return product;
+      }
+    });
+
   // sort by changedDate
   updated.sort((a, b) => new Date(b.changedDate) - new Date(a.changedDate));
 
