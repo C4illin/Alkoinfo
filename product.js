@@ -103,7 +103,7 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
         </tr>
         <tr>
           <td>Uppdaterad</td>
-          <td>${(json.changedDate != "1673910000000") ? new Date(json.changedDate+3600000).toISOString().split("T")[0] : "Nej"}</td>
+          <td>${(json.changedDate != "1673910000000") ? new Date(json.changedDate + 3600000).toISOString().split("T")[0] : "Nej"}</td>
         </tr>
         <tr>
           <td>Nyhet</td>
@@ -134,66 +134,73 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
   // );
 
 
+  let scales = {
+    x: {
+      type: "time",
+    },
+    y: {
+      type: "linear",
+      display: true,
+      position: "left",
+      ticks: {
+        callback: function (value, index, ticks) {
+          return Math.round((value + Number.EPSILON) * 100) / 100 + " kr";
+        },
+      },
+    },
+    y2: {
+      type: "linear",
+      display: false,
+      grid: {
+        drawOnChartArea: false,
+      },
+    },
+  }
+
+  let dataset = [{
+    data: json.priceHistory,
+    label: "Pris [kr]",
+    yAxisID: "y",
+  }]
+
+  if (json.alcoholHistory.length > 1) {
+    dataset.push({
+      data: json.alcoholHistory,
+      label: "Alkoholhalt [%]",
+      yAxisID: "y1",
+    })
+
+    scales.y1 = {
+      type: "linear",
+      display: true,
+      position: "right",
+      ticks: {
+        callback: function (value, index, ticks) {
+          return Math.round((value + Number.EPSILON) * 10) / 10 + " %";
+        },
+      },
+      grid: {
+        drawOnChartArea: false,
+      },
+    };
+  }
+
+  if (json.soldVolume) {
+    dataset.push({
+      data: json.soldVolume,
+      label: "Såld volym [l/år]",
+      yAxisID: "y2",
+    })
+  }
 
   const ctx = document.getElementById("myChart");
   new Chart(ctx, {
     type: "line",
     data: {
-      datasets: [
-        {
-          data: json.priceHistory,
-          label: "Pris [kr]",
-          yAxisID: "y",
-        },
-        {
-          data: json.alcoholHistory,
-          label: "Alkoholhalt [%]",
-          yAxisID: "y1",
-        },
-        {
-          data: json.soldVolume,
-          label: "Såld volym [l/år]",
-          yAxisID: "y2",
-        },
-      ],
+      datasets: dataset
     },
     options: {
-      scales: {
-        x: {
-          type: "time",
-        },
-        y: {
-          type: "linear",
-          display: true,
-          position: "left",
-          ticks: {
-            callback: function (value, index, ticks) {
-              return Math.round((value + Number.EPSILON) * 100) / 100 + " kr";
-            },
-          },
-        },
-        y1: {
-          type: "linear",
-          display: true,
-          position: "right",
-          ticks: {
-            callback: function (value, index, ticks) {
-              return Math.round((value + Number.EPSILON) * 10) / 10 + " %";
-            },
-          },
-          // grid line settings
-          grid: {
-            drawOnChartArea: false, // only want the grid lines for one axis to show up
-          },
-        },
-        y2: {
-          type: "linear",
-          display: false,
-          grid: {
-            drawOnChartArea: false, // only want the grid lines for one axis to show up
-          },
-        },
-      },
+      scales: scales,
     },
   });
 
