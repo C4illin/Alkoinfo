@@ -8,7 +8,8 @@
   "main": "_build.js",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node _build.js",
+    "autobuild": "nodemon . -e ejs,js,html,css --ignore _site"
   },
   "repository": {
     "type": "git",
