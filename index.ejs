@@ -29,6 +29,9 @@
         <b><%= product.productNameBold%></b>
         <%= product.productNameThin != null ? " " + product.productNameThin : ""%></a></h3>
         <p><%= product.customCategoryTitle %> - <%= product.price %> kr - <%= product.volumeText %> - <%= product.alcoholPercentage %> %</p>
+        <% if (product.reason) { %>
+          <p><%= product.reason %></p>
+        <% } %>
         <p>Uppdaterad: <%= (new Date(product.changedDate+3600000).toISOString()).split("T")[0] %></p>
       </div>
     <% }) %>
