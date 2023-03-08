@@ -5,6 +5,9 @@
   --border: #dee2e6;
 }
 
+/* Colors: */
+/* https://yeun.github.io/open-color/ */
+
 body {
   background: var(--background);
   color: var(--text);
@@ -55,6 +58,3 @@ footer {
 }
 
 footer a { color: var(--text2); }
-
-/* Colors: */
-/* https://yeun.github.io/open-color/ */
