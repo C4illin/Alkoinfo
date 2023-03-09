@@ -42,16 +42,15 @@ const getUrl = async (url) => {
   <url>
     <loc>https://alkoinfo.emrik.org/</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
   </url>${products.map((product) => `<url>
     <loc>https://alkoinfo.emrik.org/product.html?id=${product.productNumber}</loc>
     <lastmod>${new Date(product.changedDate).toISOString()}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
   </url>`).join("")}
 </urlset>`;
   fs.writeFileSync("_site/sitemap.xml", sitemap);
+
+  // <changefreq>daily</changefreq>
+  // <priority>0.8</priority>
 
   const updated = products
     .filter((product) => updatedProducts.map((p) => p.id).includes(product.productNumber))
