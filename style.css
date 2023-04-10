@@ -18,7 +18,7 @@ body {
 
 main {
   max-width: 800px;
-  padding: 20px;
+  padding: 10px;
   min-height: 800px;
 }
 
@@ -48,17 +48,23 @@ h4 {
   flex-direction: row;
 }
 
+.product p {
+  margin: 0.5rem 0;
+}
+
 .img-wrapper {
   padding: 12px;
   height: 130px;
-  width: 100px;
+  width: 60px;
   display: flex;
 }
 
 .img-wrapper img {
   height: 100%;
+  max-width: 60px;
   margin-left: auto;
   margin-right: auto;
+  object-fit: scale-down;
 }
 
 .text-wrapper p:last-child {
@@ -85,8 +91,16 @@ footer a { color: var(--text2); }
 @media only screen and (min-width: 768px) {
   main {
     margin: 20px auto;
+    padding: 20px;
     border-radius: 6px;
     border: 1px solid var(--border);
+  }
+  .img-wrapper {
+    width: 100px;
+  }
+  
+  .img-wrapper img {
+    max-width: 100px;
   }
 
   .product {
