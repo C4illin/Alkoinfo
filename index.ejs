@@ -38,15 +38,15 @@
     <% updated.forEach(function (product) { %>
       <div class="product">
           <% if (product.images && product.images.length > 0) { %>
-            <div class="img-wrapper"><img src="<%= product.images[0].imageUrl %>_100.png?q=75&w=2000" alt="Produktbild"></div>
+            <div class="img-wrapper"><img src="<%= product.images[0].imageUrl %>_100.png?q=75&w=2000" alt="Produktbild" loading="lazy"></div>
           <% } else if (product.categoryLevel1 == "Vin") { %>
-            <div class="img-wrapper"><img src="placeholder-wine-bottle.png" alt="Generisk produktbild för en vinflaska"></div>
+            <div class="img-wrapper"><img src="placeholder-wine-bottle.png" alt="Generisk produktbild för en vinflaska" loading="lazy"></div>
           <% } else if (product.categoryLevel1 == "Öl" || product.categoryLevel1 == "Cider & blanddrycker") { %>
-            <div class="img-wrapper"><img src="placeholder-beer-bottle.png" alt="Generisk produktbild för en ölburk"></div>
+            <div class="img-wrapper"><img src="placeholder-beer-bottle.png" alt="Generisk produktbild för en ölburk" loading="lazy"></div>
           <% } else if (product.categoryLevel1 == "Sprit") { %>
-            <div class="img-wrapper"><img src="placeholder-casque.png" alt="Generisk produktbild för ett fat"></div>
+            <div class="img-wrapper"><img src="placeholder-casque.png" alt="Generisk produktbild för ett fat" loading="lazy"></div>
           <% } else { %>
-            <div class="img-wrapper"><img src="placeholder-gift-bags.png" alt="Generisk produktbild för en presentpåse"></div>
+            <div class="img-wrapper"><img src="placeholder-gift-bags.png" alt="Generisk produktbild för en presentpåse" loading="lazy"></div>
           <% } %>
         <div class="text-wrapper">
           <h3><a href="https://alkoinfo.emrik.org/product.html?id=<%=product.productNumber%>">
