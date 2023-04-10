@@ -54,7 +54,9 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
 
   main.innerHTML = `
     <div>
-      <h1><a href="https://www.systembolaget.se/${json.productNumber}"><b>${json.productNameBold}</b>${json.productNameThin != null ? " " + json.productNameThin : ""}</a> | <a href="https://alkoinfo.emrik.org/"> Alkoinfo</a></h1>
+      <header><a href="https://alkoinfo.emrik.org/">Alkoinfo</a></header>
+      <hr>
+      <h1><a href="https://www.systembolaget.se/${json.productNumber}"><b>${json.productNameBold}</b>${json.productNameThin != null ? " " + json.productNameThin : ""}</a></h1>
       <h3>Grundläggande info</h3>
       <table>
         <tr>

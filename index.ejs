@@ -34,12 +34,19 @@
   <main id="main">
     <h1>Alkoinfo | Prishistorik för Systembolaget</h1>
     <p>Produkter uppdaterade de senaste 7 dagarna på systembolaget. Klicka på produktnamnet för att se prishistorik.</p>
+    <hr id="start-hr">
     <% updated.forEach(function (product) { %>
       <div class="product">
           <% if (product.images && product.images.length > 0) { %>
             <div class="img-wrapper"><img src="<%= product.images[0].imageUrl %>_100.png?q=75&w=2000" alt="Produktbild"></div>
           <% } else if (product.categoryLevel1 == "Vin") { %>
             <div class="img-wrapper"><img src="placeholder-wine-bottle.png" alt="Generisk produktbild för en vinflaska"></div>
+          <% } else if (product.categoryLevel1 == "Öl" || product.categoryLevel1 == "Cider & blanddrycker") { %>
+            <div class="img-wrapper"><img src="placeholder-beer-bottle.png" alt="Generisk produktbild för en ölburk"></div>
+          <% } else if (product.categoryLevel1 == "Sprit") { %>
+            <div class="img-wrapper"><img src="placeholder-casque.png" alt="Generisk produktbild för ett fat"></div>
+          <% } else { %>
+            <div class="img-wrapper"><img src="placeholder-gift-bags.png" alt="Generisk produktbild för en presentpåse"></div>
           <% } %>
         <div class="text-wrapper">
           <h3><a href="https://alkoinfo.emrik.org/product.html?id=<%=product.productNumber%>">
