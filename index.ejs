@@ -36,20 +36,22 @@
     <p>Produkter uppdaterade de senaste 7 dagarna på systembolaget. Klicka på produktnamnet för att se prishistorik.</p>
     <% updated.forEach(function (product) { %>
       <div class="product">
-        <div class="img-wrapper">
           <% if (product.images && product.images.length > 0) { %>
-          <img src="<%= product.images[0].imageUrl %>_100.png?q=75&w=2000" alt="Produktbild">
+            <div class="img-wrapper"><img src="<%= product.images[0].imageUrl %>_100.png?q=75&w=2000" alt="Produktbild"></div>
           <% } else if (product.categoryLevel1 == "Vin") { %>
-          <img src="placeholder-wine-bottle.png" alt="Generisk produktbild för en vinflaska">
+            <div class="img-wrapper"><img src="placeholder-wine-bottle.png" alt="Generisk produktbild för en vinflaska"></div>
           <% } %>
-        </div>
         <div class="text-wrapper">
           <h3><a href="https://alkoinfo.emrik.org/product.html?id=<%=product.productNumber%>">
           <b><%= product.productNameBold%></b>
           <%= product.productNameThin != null ? " " + product.productNameThin : ""%></a></h3>
           <p><%= product.customCategoryTitle %> | <%= product.price %> kr - <%= product.volumeText %> - <%= product.alcoholPercentage %> %</p>
           <% if (product.reason) { %>
-          <p><%= product.reason %></p>
+            <% if (product.reason == "Ny produkt.") { %>
+              <p> Ny produkt, släpps: <%=product.productLaunchDate.split("T")[0]%></p>
+            <% } else { %>
+              <p><%= product.reason %></p>
+            <% } %>
           <% } %>
           <p>Uppdaterad: <%= (new Date(product.changedDate+3600000).toISOString()).split("T")[0] %></p>
         </div>
