@@ -45,7 +45,8 @@
           <h3><a href="https://alkoinfo.emrik.org/product.html?id=<%=product.productNumber%>">
           <b><%= product.productNameBold%></b>
           <%= product.productNameThin != null ? " " + product.productNameThin : ""%></a></h3>
-          <p><%= product.customCategoryTitle %> | <%= product.price %> kr - <%= product.volumeText %> - <%= product.alcoholPercentage %> %</p>
+          <p class="category"><%= product.customCategoryTitle %></p>
+          <p class="info"><%= product.price %> kr | <%= product.volumeText %> | <%= product.alcoholPercentage %> %</p>
           <% if (product.reason) { %>
             <% if (product.reason == "Ny produkt.") { %>
               <p> Ny produkt, släpps: <%=product.productLaunchDate.split("T")[0]%></p>

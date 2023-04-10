@@ -18,11 +18,7 @@ body {
 
 main {
   max-width: 800px;
-  margin: 20px auto;
-  /* outline: 1px solid #000; */
-  border-radius: 6px;
   padding: 20px;
-  border: 1px solid var(--border);
   min-height: 800px;
 }
 
@@ -47,10 +43,7 @@ h4 {
 .product {
   margin-bottom: 20px;
   width: 100%;
-  box-sizing: border-box;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 20px;
+
   display: flex;
   flex-direction: row;
 }
@@ -88,3 +81,18 @@ footer {
 }
 
 footer a { color: var(--text2); }
+
+@media only screen and (min-width: 768px) {
+  main {
+    margin: 20px auto;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  .product {
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+  }
+}
