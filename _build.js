@@ -4,6 +4,7 @@ const ejs = require("ejs");
 const core = require("@actions/core"); // required to be able to fail correctly
 const minify = require('html-minifier').minify;
 const UglifyJS = require("uglify-js");
+const CleanCSS = require('clean-css');
 
 const minifyOptions = {
   collapseWhitespace: true,
@@ -103,8 +104,13 @@ const getUrl = async (url) => {
   const files = fs.readdirSync(".");
   for (const file of files) {
     if (dontCopy.includes(file) || file.startsWith("_") || file.startsWith(".") || file.endsWith(".ejs")) continue;
-    if (file.endsWith(".html") || file.endsWith(".css")) {
+    if (file.endsWith(".html")) {
       let minimized = minify(fs.readFileSync(file, "utf8"), minifyOptions);
+      fs.writeFileSync(`_site/${file}`, minimized);
+    } else if (file.endsWith(".css")) {
+      let minimized = new CleanCSS({
+        level: 2
+      }).minify(fs.readFileSync(file, "utf8")).styles;
       fs.writeFileSync(`_site/${file}`, minimized);
     } else if (file.endsWith(".js")) {
       let minimized = UglifyJS.minify(fs.readFileSync(file, "utf8")).code;
