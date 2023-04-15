@@ -57,6 +57,7 @@ let url = "https://susbolaget.emrik.org/v1/product/" + queryString;
       <header><a href="https://alkoinfo.emrik.org/">Alkoinfo</a></header>
       <hr>
       <h1><a href="https://www.systembolaget.se/${json.productNumber}"><b>${json.productNameBold}</b>${json.productNameThin != null ? " " + json.productNameThin : ""}</a></h1>
+      ${json.images[0] ? `<img class=\"product-img\" src=\"${json.images[0].imageUrl}_400.png?q=75&w=2000\" alt=\"Produktbild\" loading=\"lazy\">` : ""}
       <h3>Grundläggande info</h3>
       <table>
         <tr>
