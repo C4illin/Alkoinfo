@@ -30,7 +30,7 @@ jobs:
       - name: GitHub Checkout
         uses: actions/checkout@v4
       - name: Node install
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
       - run: npm install
       - run: node _build.js
       - name: Setup Pages
