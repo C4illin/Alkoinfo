@@ -66,7 +66,7 @@ async function build()  {
   </url>${products
 		.map(
 			(product) => `<url>
-    <loc>https://alkoinfo.emrik.org/product.html?id=${product.productNumber}</loc>
+    <loc>https://alkoinfo.emrik.org/product/${product.productNumber}</loc>
     <lastmod>${new Date(product.changedDate).toISOString()}</lastmod>
   </url>`,
 		)
