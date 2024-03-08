@@ -46,18 +46,18 @@
     <% updated.forEach(function (product) { %>
       <div class="product">
           <% if (product.images && product.images.length > 0) { %>
-            <a href="product.html?id=<%=product.productNumber%>" class="img-wrapper"><img src="<%= product.images[0].imageUrl %>_100.png?q=75&w=2000" alt="Produktbild" loading="lazy"></a>
+            <a href="product/<%=product.productNumber%>" class="img-wrapper"><img src="<%= product.images[0].imageUrl %>_100.png?q=75&w=2000" alt="Produktbild" loading="lazy"></a>
           <% } else if (product.categoryLevel1 == "Vin") { %>
-            <a href="product.html?id=<%=product.productNumber%>" class="img-wrapper"><img src="placeholder-wine-bottle.png" alt="Generisk produktbild för en vinflaska" loading="lazy"></a>
+            <a href="product/<%=product.productNumber%>" class="img-wrapper"><img src="placeholder-wine-bottle.png" alt="Generisk produktbild för en vinflaska" loading="lazy"></a>
           <% } else if (product.categoryLevel1 == "Öl" || product.categoryLevel1 == "Cider & blanddrycker") { %>
-            <a href="product.html?id=<%=product.productNumber%>" class="img-wrapper"><img src="placeholder-beer-bottle.png" alt="Generisk produktbild för en ölburk" loading="lazy"></a>
+            <a href="product/<%=product.productNumber%>" class="img-wrapper"><img src="placeholder-beer-bottle.png" alt="Generisk produktbild för en ölburk" loading="lazy"></a>
           <% } else if (product.categoryLevel1 == "Sprit") { %>
-            <a href="product.html?id=<%=product.productNumber%>" class="img-wrapper"><img src="placeholder-casque.png" alt="Generisk produktbild för ett fat" loading="lazy"></a>
+            <a href="product/<%=product.productNumber%>" class="img-wrapper"><img src="placeholder-casque.png" alt="Generisk produktbild för ett fat" loading="lazy"></a>
           <% } else { %>
-            <a href="product.html?id=<%=product.productNumber%>" class="img-wrapper"><img src="placeholder-gift-bags.png" alt="Generisk produktbild för en presentpåse" loading="lazy"></a>
+            <a href="product/<%=product.productNumber%>" class="img-wrapper"><img src="placeholder-gift-bags.png" alt="Generisk produktbild för en presentpåse" loading="lazy"></a>
           <% } %>
         <div class="text-wrapper">
-          <h3><a href="product.html?id=<%=product.productNumber%>">
+          <h3><a href="product/<%=product.productNumber%>">
           <b><%= product.productNameBold%></b>
           <%= product.productNameThin != null ? " " + product.productNameThin : ""%></a></h3>
           <p class="category"><%= product.customCategoryTitle %></p>
