@@ -61,11 +61,11 @@
 //     .object.syntax ("{", "}")
 //     .array.syntax  ("[", "]")
 
-var module,
-  window,
-  define,
-  renderjson = (function () {
-    var themetext = function (/* [class, text]+ */) {
+var module;
+var window;
+var define;
+var renderjson = (() => {
+    var themetext = (/* [class, text]+ */) => {
       var spans = [];
       while (arguments.length)
         spans.push(
@@ -79,28 +79,24 @@ var module,
     var append = function (/* el, ... */) {
       var el = Array.prototype.shift.call(arguments);
       for (var a = 0; a < arguments.length; a++)
-        if (arguments[a].constructor == Array)
+        if (arguments[a].constructor === Array)
           append.apply(this, [el].concat(arguments[a]));
         else el.appendChild(arguments[a]);
       return el;
     };
-    var prepend = function (el, child) {
+    var prepend = (el, child) => {
       el.insertBefore(child, el.firstChild);
       return el;
     };
-    var isempty = function (obj, pl) {
+    var isempty = (obj, pl) => {
       var keys = pl || Object.keys(obj);
       for (var i in keys)
         if (Object.hasOwnProperty.call(obj, keys[i])) return false;
       return true;
     };
-    var text = function (txt) {
-      return document.createTextNode(txt);
-    };
-    var div = function () {
-      return document.createElement("div");
-    };
-    var span = function (classname) {
+    var text = (txt) => document.createTextNode(txt);
+    var div = () => document.createElement("div");
+    var span = (classname) => {
       var s = document.createElement("span");
       if (classname) s.className = classname;
       return s;
@@ -110,7 +106,7 @@ var module,
       if (classname) a.className = classname;
       a.appendChild(text(txt));
       a.href = "#";
-      a.onclick = function (e) {
+      a.onclick = (e) => {
         callback();
         if (e) e.stopPropagation();
         return false;
@@ -121,16 +117,16 @@ var module,
     function _renderjson(json, indent, dont_indent, show_level, options) {
       var my_indent = dont_indent ? "" : indent;
 
-      var disclosure = function (open, placeholder, close, type, builder) {
+      var disclosure = (open, placeholder, close, type, builder) => {
         var content;
         var empty = span(type);
-        var show = function () {
+        var show = () => {
           if (!content)
             append(
               empty.parentNode,
               (content = prepend(
                 builder(),
-                A(options.hide, "disclosure", function () {
+                A(options.hide, "disclosure", () => {
                   content.style.display = "none";
                   empty.style.display = "inline";
                 })
@@ -142,13 +138,13 @@ var module,
         append(
           empty,
           A(options.show, "disclosure", show),
-          themetext(type + " syntax", open),
+          themetext(`${type} syntax`, open),
           A(placeholder, null, show),
           themetext(type + " syntax", close)
         );
 
         var el = append(span(), text(my_indent.slice(0, -1)), empty);
-        if (show_level > 0 && type != "string") show();
+        if (show_level > 0 && type !== "string") show();
         return el;
       };
 
@@ -162,23 +158,21 @@ var module,
           json.substr(0, options.max_string_length) + " ...",
           '"',
           "string",
-          function () {
-            return append(
+          () => append(
               span("string"),
               themetext(null, my_indent, "string", JSON.stringify(json))
-            );
-          }
+            )
         );
 
       if (
-        typeof json != "object" ||
+        typeof json !== "object" ||
         [Number, String, Boolean, Date].indexOf(json.constructor) >= 0
       )
         // Strings, numbers and bools
         return themetext(null, my_indent, typeof json, JSON.stringify(json));
 
-      if (json.constructor == Array) {
-        if (json.length == 0)
+      if (json.constructor === Array) {
+        if (json.length === 0)
           return themetext(null, my_indent, "array syntax", "[]");
 
         return disclosure(
@@ -186,7 +180,7 @@ var module,
           options.collapse_msg(json.length),
           "]",
           "array",
-          function () {
+          () => {
             var as = append(
               span("array"),
               themetext("array syntax", "[", null, "\n")
@@ -201,7 +195,7 @@ var module,
                   show_level - 1,
                   options
                 ),
-                i != json.length - 1 ? themetext("syntax", ",") : [],
+                i !== json.length - 1 ? themetext("syntax", ",") : [],
                 text("\n")
               );
             append(as, themetext(null, indent, "array syntax", "]"));
@@ -219,7 +213,7 @@ var module,
         options.collapse_msg(Object.keys(json).length),
         "}",
         "object",
-        function () {
+        () => {
           var os = append(
             span("object"),
             themetext("object syntax", "{", null, "\n")
@@ -236,7 +230,7 @@ var module,
                 null,
                 indent + "    ",
                 "key",
-                '"' + k + '"',
+                `"${k}"`,
                 "object syntax",
                 ": "
               ),
@@ -247,7 +241,7 @@ var module,
                 show_level - 1,
                 options
               ),
-              k != last ? themetext("syntax", ",") : [],
+              k !== last ? themetext("syntax", ",") : [],
               text("\n")
             );
           }
@@ -260,55 +254,53 @@ var module,
     var renderjson = function renderjson(json) {
       var options = new Object(renderjson.options);
       options.replacer =
-        typeof options.replacer == "function"
+        typeof options.replacer === "function"
           ? options.replacer
-          : function (k, v) {
-              return v;
-            };
-      var pre = append(
+          : ((_k, v) => v);
+      const pre = append(
         document.createElement("pre"),
         _renderjson(json, "", false, options.show_to_level, options)
       );
       pre.className = "renderjson";
       return pre;
     };
-    renderjson.set_icons = function (show, hide) {
+    renderjson.set_icons = (show, hide) => {
       renderjson.options.show = show;
       renderjson.options.hide = hide;
       return renderjson;
     };
-    renderjson.set_show_to_level = function (level) {
+    renderjson.set_show_to_level = (level) => {
       renderjson.options.show_to_level =
         typeof level == "string" && level.toLowerCase() === "all"
           ? Number.MAX_VALUE
           : level;
       return renderjson;
     };
-    renderjson.set_max_string_length = function (length) {
+    renderjson.set_max_string_length = (length) => {
       renderjson.options.max_string_length =
-        typeof length == "string" && length.toLowerCase() === "none"
+        typeof length === "string" && length.toLowerCase() === "none"
           ? Number.MAX_VALUE
           : length;
       return renderjson;
     };
-    renderjson.set_sort_objects = function (sort_bool) {
+    renderjson.set_sort_objects = (sort_bool) => {
       renderjson.options.sort_objects = sort_bool;
       return renderjson;
     };
-    renderjson.set_replacer = function (replacer) {
+    renderjson.set_replacer = (replacer) => {
       renderjson.options.replacer = replacer;
       return renderjson;
     };
-    renderjson.set_collapse_msg = function (collapse_msg) {
+    renderjson.set_collapse_msg = (collapse_msg) => {
       renderjson.options.collapse_msg = collapse_msg;
       return renderjson;
     };
-    renderjson.set_property_list = function (prop_list) {
+    renderjson.set_property_list = (prop_list) => {
       renderjson.options.property_list = prop_list;
       return renderjson;
     };
     // Backwards compatiblity. Use set_show_to_level() for new code.
-    renderjson.set_show_by_default = function (show) {
+    renderjson.set_show_by_default = (show) => {
       renderjson.options.show_to_level = show ? Number.MAX_VALUE : 0;
       return renderjson;
     };
@@ -319,9 +311,7 @@ var module,
     renderjson.set_max_string_length("none");
     renderjson.set_replacer(void 0);
     renderjson.set_property_list(void 0);
-    renderjson.set_collapse_msg(function (len) {
-      return len + " item" + (len == 1 ? "" : "s");
-    });
+    renderjson.set_collapse_msg((len) => len + " item" + (len == 1 ? "" : "s"));
     return renderjson;
   })();
 

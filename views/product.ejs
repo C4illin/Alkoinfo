@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary" />
   <meta property="twitter:title" content="Alkoinfo" />
   <script
-    type="application/ld+json"> {"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Emrik","url":"https://emrik.org"},"dateModified":"<%= if ( json.changedDate) { new Date(json.changedDate).toISOString() } else {new Date().toISOString()} %>","description":"Prishistorik för Systembolaget produkt","headline":"Alkoinfo","name":"C4illin","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://alkoinfo.emrik.org/android-chrome-512x512.png"},"name":"Emrik"},"sameAs":["https://github.com/C4illin"],"url":"https://alkoinfo.emrik.org/"}</script>
+    type="application/ld+json"> {"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Emrik","url":"https://emrik.org"},"dateModified":"<%= new Date(json.changedDate).toISOString() %>","description":"Prishistorik för Systembolaget produkt","headline":"Alkoinfo","name":"C4illin","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://alkoinfo.emrik.org/android-chrome-512x512.png"},"name":"Emrik"},"sameAs":["https://github.com/C4illin"],"url":"https://alkoinfo.emrik.org/"}</script>
   <!-- Matomo -->
   <script>
     var _paq = window._paq = window._paq || [];
@@ -139,7 +139,8 @@
         </table>
 
 
-        <% if (json.tasteClocks.length> 0 || json.usage || json.taste || json.color || json.sugarContentGramPer100ml) { %>
+        <% if (json.tasteClocks.length> 0 || json.usage || json.taste || json.color || json.sugarContentGramPer100ml) {
+          %>
           <h3>Smak</h3>
           <table>
             <tr>
@@ -168,27 +169,30 @@
             </tr>
 
             <% for (let clock of json.tasteClocks) { %>
-              <%- `<tr><td>${clock.key.replace("TasteClock", "")}</td><td>${clock.value}/12</td></tr>` %>
-            <% } %>
+              <%- `<tr>
+                <td>${clock.key.replace("TasteClock", "")}</td>
+                <td>${clock.value}/12</td>
+                </tr>` %>
+                <% } %>
 
           </table>
-        <% } %>
+          <% } %>
 
-        <h3>Flaska</h3>
-        <table>
-          <tr>
-            <td>Typ</td>
-            <td>
-              <%=json.packagingLevel1%>
-            </td>
-          </tr>
-          <tr>
-            <td>Pant</td>
-            <td>
-              <%=json.recycleFee || 0%> kr
-            </td>
-          </tr>
-        </table>
+            <h3>Flaska</h3>
+            <table>
+              <tr>
+                <td>Typ</td>
+                <td>
+                  <%=json.packagingLevel1%>
+                </td>
+              </tr>
+              <tr>
+                <td>Pant</td>
+                <td>
+                  <%=json.recycleFee || 0%> kr
+                </td>
+              </tr>
+            </table>
     </div>
     <h3>Historik</h3>
     <div>
