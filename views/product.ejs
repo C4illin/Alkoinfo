@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alkoinfo | <%= json.productNameBold + " " + (json.productNameThin || "" ) %>
+  </title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Alkoinfo" />
+  <meta name="author" content="Emrik" />
+  <meta property="og:locale" content="sv_SE" />
+  <meta name="description" content="Prishistorik för Systembolaget produkt" />
+  <meta property="og:description" content="Prishistorik för Systembolaget produkt" />
+  <link rel="canonical" href="https://alkoinfo.emrik.org/" />
+  <meta property="og:url" content="https://alkoinfo.emrik.org/" />
+  <meta property="og:site_name" content="Alkoinfo" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="twitter:title" content="Alkoinfo" />
+  <script
+    type="application/ld+json"> {"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Emrik","url":"https://emrik.org"},"dateModified":"<%= if ( json.changedDate) { new Date(json.changedDate).toISOString() } else {new Date().toISOString()} %>","description":"Prishistorik för Systembolaget produkt","headline":"Alkoinfo","name":"C4illin","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://alkoinfo.emrik.org/android-chrome-512x512.png"},"name":"Emrik"},"sameAs":["https://github.com/C4illin"],"url":"https://alkoinfo.emrik.org/"}</script>
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function () {
+      var u = "//matomo.emrik.org/";
+      _paq.push(['setTrackerUrl', u + 'matomo.php']);
+      _paq.push(['setSiteId', '6']);
+      var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+      g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+</head>
+
+<body>
+  <main id="main">
+    <div>
+      <header><a href="https://alkoinfo.emrik.org/">Alkoinfo</a></header>
+      <hr>
+      <h1><a href="https://www.systembolaget.se/<%= json.productNumber %>"><b>
+            <%= json.productNameBold %>
+          </b>
+          <%= json.productNameThin!=null ? " " + json.productNameThin : "" %>
+        </a></h1>
+      <%- json.images[0] ? `<img class=\"product-img\"
+        src=\"${json.images[0].imageUrl}_400.png?q=75&w=2000\"alt=\"Produktbild\" loading=\"lazy\">` : "" %>
+        <h3>Grundläggande info</h3>
+        <table>
+          <tr>
+            <td>Id</td>
+            <td>
+              <%=json.productId%>
+            </td>
+          </tr>
+          <tr>
+            <td>Artikelnummer</td>
+            <td>
+              <%=json.productNumber%>
+            </td>
+          </tr>
+          <tr>
+            <td>Pris</td>
+            <td>
+              <%=json.price%> kr
+            </td>
+          </tr>
+          <tr>
+            <td>Alkoholhalt</td>
+            <td>
+              <%=json.alcoholPercentage%> %
+            </td>
+          </tr>
+          <tr>
+            <td>Volym</td>
+            <td>
+              <%=json.volumeText%>
+            </td>
+          </tr>
+          <tr>
+            <td>Tillverkare</td>
+            <td>
+              <%=json.producerName%>
+            </td>
+          </tr>
+          <tr>
+            <td>Leverantör</td>
+            <td>
+              <%=json.supplierName%>
+            </td>
+          </tr>
+          <tr>
+            <td>Land</td>
+            <td>
+              <%=json.country + (json.originLevel1 !=null ? ", " + json.originLevel1 : "" ) + (json.originLevel2 !=null
+                ? "," + json.originLevel2 : "" )%>
+            </td>
+          </tr>
+          <tr>
+            <td>Sortiment</td>
+            <td>
+              <%=json.assortmentText%>
+            </td>
+          </tr>
+          <tr>
+            <td>Kategori</td>
+            <td>
+              <%=json.customCategoryTitle%>
+            </td>
+          </tr>
+          <tr>
+            <td>Släpptes</td>
+            <td>
+              <%=json.productLaunchDate.split("T")[0]%>
+            </td>
+          </tr>
+          <tr>
+            <td>Uppdaterad</td>
+            <td>
+              <%=(json.changedDate !="1673910000000" ) ? new Date(json.changedDate +
+                3600000).toISOString().split("T")[0] : "Nej" %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nyhet</td>
+            <td>
+              <%=json.isNews ? "Ja" : "Nej" %>
+            </td>
+          </tr>
+        </table>
+
+
+        <% if (json.tasteClocks.length> 0 || json.usage || json.taste || json.color || json.sugarContentGramPer100ml) { %>
+          <h3>Smak</h3>
+          <table>
+            <tr>
+              <td>Servering</td>
+              <td>
+                <%= json.usage ? json.usage : "Ej testad" %>
+              </td>
+            </tr>
+            <tr>
+              <td>Smak</td>
+              <td>
+                <%= json.taste ? json.taste : "Ej testad" %>
+              </td>
+            </tr>
+            <tr>
+              <td>Färg</td>
+              <td>
+                <%= json.color ? json.color : "Ej testad" %>
+              </td>
+            </tr>
+            <tr>
+              <td>Sockerinnehåll</td>
+              <td>
+                <%= json.sugarContentGramPer100ml ? json.sugarContentGramPer100ml + "g/100ml" : "Ej testad" %>
+              </td>
+            </tr>
+
+            <% for (let clock of json.tasteClocks) { %>
+              <%- `<tr><td>${clock.key.replace("TasteClock", "")}</td><td>${clock.value}/12</td></tr>` %>
+            <% } %>
+
+          </table>
+        <% } %>
+
+        <h3>Flaska</h3>
+        <table>
+          <tr>
+            <td>Typ</td>
+            <td>
+              <%=json.packagingLevel1%>
+            </td>
+          </tr>
+          <tr>
+            <td>Pant</td>
+            <td>
+              <%=json.recycleFee || 0%> kr
+            </td>
+          </tr>
+        </table>
+    </div>
+    <h3>Historik</h3>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+    <h4>Rådata</h4>
+  </main>
+  <footer>
+    <p>
+      Källkoden finns på
+      <a href="https://github.com/C4illin/Alkoinfo"> github.com/C4illin/Alkoinfo</a>
+    </p>
+  </footer>
+
+  <script async type="text/javascript" src="/renderjson.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+  <script defer src="/product.js"></script>
+</body>
+
+</html>

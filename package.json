@@ -2,15 +2,18 @@
   "dependencies": {
     "@actions/core": "^1.10.1",
     "clean-css": "^5.3.3",
+    "cron": "^3.1.6",
     "ejs": "^3.1.9",
+    "express": "^4.18.3",
     "html-minifier": "^4.0.0",
     "uglify-js": "^3.17.4"
   },
   "name": "alkoinfo",
+  "type": "module",
   "version": "1.0.0",
-  "main": "_build.js",
+  "main": "index.js",
   "scripts": {
-    "build": "node _build.js",
+    "build": "node build.js",
     "autobuild": "nodemon . -e ejs,js,html,css --ignore _site"
   },
   "repository": {

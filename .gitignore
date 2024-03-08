@@ -1,2 +1,7 @@
 /_site
 /node_modules
+/public/index.html
+/public/graph.js
+/public/product.js
+/public/renderjson.js
+/public/style.css
