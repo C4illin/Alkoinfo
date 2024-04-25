@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary" />
   <meta property="twitter:title" content="Alkoinfo" />
   <script
-    type="application/ld+json"> {"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Emrik","url":"https://emrik.org"},"dateModified":"<%= new Date(json.changedDate).toISOString() %>","description":"Prishistorik för Systembolaget produkt","headline":"Alkoinfo","name":"C4illin","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://alkoinfo.emrik.org/android-chrome-512x512.png"},"name":"Emrik"},"sameAs":["https://github.com/C4illin"],"url":"https://alkoinfo.emrik.org/"}</script>
+    type="application/ld+json"> {"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Emrik","url":"https://emrik.org"},"dateModified":"<%= new Date(json.changedDate ? json.changedDate : json.productLaunchDate).toISOString() %>","description":"Prishistorik för Systembolaget produkt","headline":"Alkoinfo","name":"C4illin","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://alkoinfo.emrik.org/android-chrome-512x512.png"},"name":"Emrik"},"sameAs":["https://github.com/C4illin"],"url":"https://alkoinfo.emrik.org/"}</script>
   <!-- Matomo -->
   <script>
     var _paq = window._paq = window._paq || [];
