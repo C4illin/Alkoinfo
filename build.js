@@ -1,5 +1,11 @@
 import { get } from "node:https";
-import { mkdirSync, writeFileSync, readdirSync, readFileSync, copyFileSync } from "node:fs";
+import {
+	mkdirSync,
+	writeFileSync,
+	readdirSync,
+	readFileSync,
+	copyFileSync,
+} from "node:fs";
 import { renderFile } from "ejs";
 import { setFailed } from "@actions/core"; // required to be able to fail correctly
 import { minify } from "html-minifier";
@@ -37,13 +43,23 @@ const getUrl = async (url) => {
 					reject(error.message);
 				}
 			});
+		}).on("error", (err) => {
+			console.log(`Failed to fetch data from ${url}`);
 		});
 	});
 };
 
-async function build()  {
+async function build() {
 	// get products and updated products
-	const products = await getUrl("https://susbolaget.emrik.org/v1/products");
+	let products;
+	try {
+		products = await getUrl("https://susbolaget.emrik.org/v1/products");
+	} catch (error) {
+		console.error(`Error: ${error}`);
+		console.log("Failed to fetch products, retrying in 1 hour");
+		setTimeout(build, 60 * 60 * 1000);
+		return;
+	}
 	const updatedProducts = await getUrl(
 		"https://susbolaget.emrik.org/v1/products/updated",
 	);
@@ -121,7 +137,10 @@ async function build()  {
 		)
 			continue;
 		if (file.endsWith(".html")) {
-			const minimized = minify(readFileSync(`${folder}/${file}`, "utf8"), minifyOptions);
+			const minimized = minify(
+				readFileSync(`${folder}/${file}`, "utf8"),
+				minifyOptions,
+			);
 			writeFileSync(`public/${file}`, minimized);
 		} else if (file.endsWith(".css")) {
 			const minimized = new CleanCSS({
@@ -135,6 +154,6 @@ async function build()  {
 			copyFileSync(`${folder}/${file}`, `public/${file}`);
 		}
 	}
-};
+}
 
 export default build;
