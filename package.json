@@ -14,7 +14,9 @@
   "main": "index.js",
   "scripts": {
     "build": "node build.js",
-    "autobuild": "nodemon . -e ejs,js,html,css --ignore _site"
+    "autobuild": "nodemon . -e ejs,js,html,css --ignore _site",
+    "lint": "eslint . && biome check .",
+    "format": "biome format ."
   },
   "repository": {
     "type": "git",
@@ -26,5 +28,11 @@
     "url": "https://github.com/C4illin/Alkoinfo/issues"
   },
   "homepage": "https://github.com/C4illin/Alkoinfo#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "biome": "^0.3.3",
+    "eslint": "^10.0.2",
+    "globals": "^17.4.0"
+  }
 }

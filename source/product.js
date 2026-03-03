@@ -23,7 +23,8 @@ const url = `https://susbolaget.emrik.org/v1/product/${queryString}`;
       display: true,
       position: "left",
       ticks: {
-        callback: (value, index, ticks) => `${Math.round((value + Number.EPSILON) * 100) / 100} kr`,
+        callback: (value) =>
+          `${Math.round((value + Number.EPSILON) * 100) / 100} kr`,
       },
     },
     y2: {
@@ -33,27 +34,30 @@ const url = `https://susbolaget.emrik.org/v1/product/${queryString}`;
         drawOnChartArea: false,
       },
     },
-  }
+  };
 
-  const dataset = [{
-    data: json.priceHistory,
-    label: "Pris [kr]",
-    yAxisID: "y",
-  }]
+  const dataset = [
+    {
+      data: json.priceHistory,
+      label: "Pris [kr]",
+      yAxisID: "y",
+    },
+  ];
 
   if (json.alcoholHistory.length > 1) {
     dataset.push({
       data: json.alcoholHistory,
       label: "Alkoholhalt [%]",
       yAxisID: "y1",
-    })
+    });
 
     scales.y1 = {
       type: "linear",
       display: true,
       position: "right",
       ticks: {
-        callback: (value, index, ticks) => `${Math.round((value + Number.EPSILON) * 10) / 10} %`,
+        callback: (value) =>
+          `${Math.round((value + Number.EPSILON) * 10) / 10} %`,
       },
       grid: {
         drawOnChartArea: false,
@@ -66,19 +70,21 @@ const url = `https://susbolaget.emrik.org/v1/product/${queryString}`;
       data: json.soldVolume,
       label: "Såld volym [l/år]",
       yAxisID: "y2",
-    })
+    });
   }
 
   const ctx = document.getElementById("myChart");
+  // eslint-disable-next-line no-undef
   new Chart(ctx, {
     type: "line",
     data: {
-      datasets: dataset
+      datasets: dataset,
     },
     options: {
       scales: scales,
     },
   });
 
+  // eslint-disable-next-line no-undef
   main.appendChild(renderjson(json));
 })();

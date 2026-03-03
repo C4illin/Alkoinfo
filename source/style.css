@@ -26,12 +26,14 @@ h1 {
   text-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.2);
 }
 
-h1 a, h3 a, header a {
+h1 a,
+h3 a,
+header a {
   color: var(--text);
   text-decoration: none;
 }
 
-header{
+header {
   width: 100%;
 }
 
@@ -122,7 +124,9 @@ footer {
   color: var(--text2);
 }
 
-footer a { color: var(--text2); }
+footer a {
+  color: var(--text2);
+}
 
 @media only screen and (min-width: 768px) {
   main {
@@ -138,7 +142,7 @@ footer a { color: var(--text2); }
   header a::after {
     content: " | Prishistorik för Systembolaget";
   }
-  
+
   .img-wrapper img {
     max-width: 100px;
   }
