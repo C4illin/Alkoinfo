@@ -14,22 +14,22 @@ new CronJob("0 0 6 * * *", build, null, true, "Europe/Stockholm");
 app.use(express.static("public"));
 
 app.get("/product/:id", (req, res) => {
-  const id = req.params.id;
-  const url = `https://susbolaget.emrik.org/v1/product/${id}`;
+	const id = req.params.id;
+	const url = `https://susbolaget.emrik.org/v1/product/${id}`;
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((json) => {
-      res.render("product.ejs", { json });
-    });
+	fetch(url)
+		.then((response) => response.json())
+		.then((json) => {
+			res.render("product.ejs", { json });
+		});
 });
 
 app.get("/product.html", (req, res) => {
-  // old path
-  const id = req.query.id;
-  res.redirect(`/product/${id}`);
+	// old path
+	const id = req.query.id;
+	res.redirect(`/product/${id}`);
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+	console.log(`Server is running on http://localhost:${port}`);
 });

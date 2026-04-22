@@ -1,38 +1,38 @@
 {
-  "dependencies": {
-    "@actions/core": "^3.0.1",
-    "clean-css": "^5.3.3",
-    "cron": "^4.4.0",
-    "ejs": "^5.0.2",
-    "express": "^5.2.1",
-    "html-minifier-terser": "^7.2.0",
-    "uglify-js": "^3.19.3"
-  },
-  "name": "alkoinfo",
-  "type": "module",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "build": "node build.js",
-    "autobuild": "nodemon . -e ejs,js,html,css --ignore _site",
-    "lint": "eslint . && biome check .",
-    "format": "biome format ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/C4illin/Alkoinfo.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/C4illin/Alkoinfo/issues"
-  },
-  "homepage": "https://github.com/C4illin/Alkoinfo#readme",
-  "description": "",
-  "devDependencies": {
-    "@biomejs/biome": "2.4.12",
-    "@eslint/js": "^10.0.1",
-    "eslint": "^10.2.0",
-    "globals": "^17.5.0"
-  }
+	"dependencies": {
+		"@actions/core": "^3.0.1",
+		"clean-css": "^5.3.3",
+		"cron": "^4.4.0",
+		"ejs": "^5.0.2",
+		"express": "^5.2.1",
+		"html-minifier-terser": "^7.2.0",
+		"uglify-js": "^3.19.3"
+	},
+	"name": "alkoinfo",
+	"type": "module",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"build": "node build.js",
+		"autobuild": "nodemon . -e ejs,js,html,css --ignore _site",
+		"lint": "eslint . && biome check .",
+		"format": "biome format ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/C4illin/Alkoinfo.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/C4illin/Alkoinfo/issues"
+	},
+	"homepage": "https://github.com/C4illin/Alkoinfo#readme",
+	"description": "",
+	"devDependencies": {
+		"@biomejs/biome": "2.4.12",
+		"@eslint/js": "^10.0.1",
+		"eslint": "^10.2.0",
+		"globals": "^17.5.0"
+	}
 }
