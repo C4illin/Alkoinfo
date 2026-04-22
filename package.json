@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "@actions/core": "^3.0.0",
+    "@actions/core": "^3.0.1",
     "clean-css": "^5.3.3",
     "cron": "^4.4.0",
-    "ejs": "^4.0.1",
+    "ejs": "^5.0.2",
     "express": "^5.2.1",
-    "html-minifier": "^4.0.0",
+    "html-minifier-terser": "^7.2.0",
     "uglify-js": "^3.19.3"
   },
   "name": "alkoinfo",
@@ -30,8 +30,8 @@
   "homepage": "https://github.com/C4illin/Alkoinfo#readme",
   "description": "",
   "devDependencies": {
+    "@biomejs/biome": "2.4.12",
     "@eslint/js": "^10.0.1",
-    "biome": "^0.3.3",
     "eslint": "^10.2.0",
     "globals": "^17.5.0"
   }

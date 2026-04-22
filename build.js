@@ -1,7 +1,7 @@
 import { setFailed } from "@actions/core"; // required to be able to fail correctly
 import CleanCSS from "clean-css";
 import ejs from "ejs";
-import { minify } from "html-minifier";
+import { minify } from "html-minifier-terser";
 import {
   copyFileSync,
   mkdirSync,
