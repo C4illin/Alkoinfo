@@ -110,13 +110,12 @@ async function build() {
 	// sort by changedDate
 	updated.sort((a, b) => new Date(b.changedDate) - new Date(a.changedDate));
 
-	ejs.renderFile("./views/index.ejs", { updated: updated }, (err, str) => {
-		if (err) {
-			setFailed(err.message);
-		} else {
-			writeFileSync("source/index.html", minify(str, minifyOptions));
-		}
-	});
+	try {
+		const str = await ejs.renderFile("./views/index.ejs", { updated: updated });
+		writeFileSync("source/index.html", await minify(str, minifyOptions));
+	} catch (err) {
+		setFailed(err.message);
+	}
 
 	// copy all files except files in don't copy
 	const dontCopy = [
@@ -137,7 +136,7 @@ async function build() {
 		)
 			continue;
 		if (file.endsWith(".html")) {
-			const minimized = minify(
+			const minimized = await minify(
 				readFileSync(`${folder}/${file}`, "utf8"),
 				minifyOptions,
 			);
